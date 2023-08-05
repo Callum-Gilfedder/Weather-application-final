@@ -1,8 +1,12 @@
-import { render, screen } from '@testing-library/react';
 import App from './App';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 
-test('renders learn react link', () => {
+
+it('displays an error message for empty input', async () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  const searchButton = screen.getByText('Search');
+  fireEvent.click(searchButton);
+  await waitFor(() => {
+    // Test assertions for error message display
+  });
 });

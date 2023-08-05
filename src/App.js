@@ -10,26 +10,33 @@ function WeatherApp() {
   // Using two states for this might be not the cleanest way to update state without triggering useEffect?
   const [userLocationInput, setUserLocationInput] = useState("");
   const [location, setLocation] = useState("")
-
+  const [apiCallStatus, setApiCallStatus] = useState(null)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     // Define the API URL
     const apiUrl = 'https://wttr.in/' + location + '?format=j1';
-    console.log("Triggered")
+    setLoading(true);
     // Fetch weather data using Axios
     axios.get(apiUrl)
       .then(response => {
         console.log(apiUrl)
+        setApiCallStatus(true)
         setResponseData(response.data)
         const extractedData = extractWeatherData(response.data);
         setCurrentWeatherData(extractedData.currentWeather);
         setTodaysWeatherData(extractedData.todaysWeather)
         setTomorrowsWeatherData(extractedData.tomorrowsWeather)
         setDayAfterTomorrowsWeather(extractedData.dayAfterTomorrowsWeather)
+        
       })
       .catch(error => {
         console.error('Error fetching weather data:', error);
-      });
+        setApiCallStatus(false)
+      })
+      .finally(
+        setLoading(false)
+      );
   }, [location]);
 
   console.log(responseData)
@@ -44,7 +51,6 @@ function WeatherApp() {
 
   // Function to extract relevant information
   function extractWeatherData(rawData) { 
-    
     const weatherData = {
         currentWeather : {
           location: rawData.nearest_area[0].areaName[0].value,
@@ -164,10 +170,11 @@ function WeatherApp() {
 
   return (
     <div>
-      <h1>Weather Data (Test update)</h1>
-      <input type="text" onChange={handleChange}></input>
-      <h1>User input: {userLocationInput}</h1>
+      <h1>Weather Data </h1>
+      <input type="text" placeholder='Enter search location...' onChange={handleChange}></input>
       <button onClick={handleClick}>Search</button>
+      {loading ? <h1> Loading... </h1>: null}
+      {location !== "" ? (apiCallStatus ? <p>Weather successfully found for {location}</p> : <p> Search failed for {location}</p>) : null}
       {/* Display simplified weather data */}
       {currentWeatherData && (
         <div>
@@ -179,96 +186,115 @@ function WeatherApp() {
             <p>Humidity: {currentWeatherData.humidity}%</p>
             <p>Wind Speed: {currentWeatherData.windSpeed}km/h</p>
 
-          <h1>Todays Weather</h1>
-          <h1>Todays weather: Morning </h1>
+
+
+          <div className='grid-container'>
+          <div className='grid-item'><h1>Todays weather: Morning </h1>
             <p>Weather description: {todaysWeatherData.weatherDescription.Morning}</p>
             <p>Temperature: {todaysWeatherData.temperature.Morning} degrees C</p>
             <p>Precipitation: {todaysWeatherData.precipitation.Morning}mm</p>
             <p>Humidity: {todaysWeatherData.humidity.Morning}%</p>
-            <p>Wind Speed: {todaysWeatherData.windSpeed.Morning}km/h</p>
-
-          <h1>Todays weather: Noon </h1>
+            <p>Wind Speed: {todaysWeatherData.windSpeed.Morning}km/h</p></div>
+          <div className='grid-item'><h1>Todays weather: Noon </h1>
             <p>Weather description: {todaysWeatherData.weatherDescription.Noon}</p>
             <p>Temperature: {todaysWeatherData.temperature.Noon} degrees C</p>
             <p>Precipitation: {todaysWeatherData.precipitation.Noon}mm</p>
             <p>Humidity: {todaysWeatherData.humidity.Noon}%</p>
-            <p>Wind Speed: {todaysWeatherData.windSpeed.Noon}km/h</p>
-          
-          <h1>Todays weather: Evening </h1>
+            <p>Wind Speed: {todaysWeatherData.windSpeed.Noon}km/h</p></div>
+          <div className='grid-item'><h1>Todays weather: Evening </h1>
             <p>Weather description: {todaysWeatherData.weatherDescription.Evening}</p>
             <p>Temperature: {todaysWeatherData.temperature.Evening} degrees C</p>
             <p>Precipitation: {todaysWeatherData.precipitation.Evening}mm</p>
             <p>Humidity: {todaysWeatherData.humidity.Evening}%</p>
-            <p>Wind Speed: {todaysWeatherData.windSpeed.Evening}km/h</p>
-
-          <h1>Todays weather: Night </h1>
+            <p>Wind Speed: {todaysWeatherData.windSpeed.Evening}km/h</p></div>
+          <div className='grid-item'>          <h1>Todays weather: Night </h1>
             <p>Weather description: {todaysWeatherData.weatherDescription.Night}</p>
             <p>Temperature: {todaysWeatherData.temperature.Night} degrees C</p>
             <p>Precipitation: {todaysWeatherData.precipitation.Night}mm</p>
             <p>Humidity: {todaysWeatherData.humidity.Night}%</p>
-            <p>Wind Speed: {todaysWeatherData.windSpeed.Night}km/h</p>
-          
-            <h1>Tomorrows Weather</h1>
-          <h1>Tomorrows weather: Morning </h1>
+            <p>Wind Speed: {todaysWeatherData.windSpeed.Night}km/h</p></div>
+          <div className='grid-item'><h1>Tomorrows weather: Morning </h1>
             <p>Weather description: {tomorrowsWeatherData.weatherDescription.Morning}</p>
             <p>Temperature: {tomorrowsWeatherData.temperature.Morning} degrees C</p>
             <p>Precipitation: {tomorrowsWeatherData.precipitation.Morning}mm</p>
             <p>Humidity: {tomorrowsWeatherData.humidity.Morning}%</p>
-            <p>Wind Speed: {tomorrowsWeatherData.windSpeed.Morning}km/h</p>
-
+            <p>Wind Speed: {tomorrowsWeatherData.windSpeed.Morning}km/h</p></div>
+          <div className='grid-item'>
           <h1>Tomorrows weather: Noon </h1>
             <p>Weather description: {tomorrowsWeatherData.weatherDescription.Noon}</p>
             <p>Temperature: {tomorrowsWeatherData.temperature.Noon} degrees C</p>
             <p>Precipitation: {tomorrowsWeatherData.precipitation.Noon}mm</p>
             <p>Humidity: {tomorrowsWeatherData.humidity.Noon}%</p>
-            <p>Wind Speed: {tomorrowsWeatherData.windSpeed.Noon}km/h</p>
-          
-          <h1>Tomorrows weather: Evening </h1>
+            <p>Wind Speed: {tomorrowsWeatherData.windSpeed.Noon}km/h</p></div>
+          <div className='grid-item'>          <h1>Tomorrows weather: Evening </h1>
             <p>Weather description: {tomorrowsWeatherData.weatherDescription.Evening}</p>
             <p>Temperature: {tomorrowsWeatherData.temperature.Evening} degrees C</p>
             <p>Precipitation: {tomorrowsWeatherData.precipitation.Evening}mm</p>
             <p>Humidity: {tomorrowsWeatherData.humidity.Evening}%</p>
-            <p>Wind Speed: {tomorrowsWeatherData.windSpeed.Evening}km/h</p>
-
-          <h1>Tomorrows weather: Night </h1>
+            <p>Wind Speed: {tomorrowsWeatherData.windSpeed.Evening}km/h</p></div>
+          <div className='grid-item'>          <h1>Tomorrows weather: Night </h1>
             <p>Weather description: {tomorrowsWeatherData.weatherDescription.Night}</p>
             <p>Temperature: {tomorrowsWeatherData.temperature.Night} degrees C</p>
             <p>Precipitation: {tomorrowsWeatherData.precipitation.Night}mm</p>
             <p>Humidity: {tomorrowsWeatherData.humidity.Night}%</p>
-            <p>Wind Speed: {tomorrowsWeatherData.windSpeed.Night}km/h</p>
-          
-          <h1>Day after tomorrow</h1>
+            <p>Wind Speed: {tomorrowsWeatherData.windSpeed.Night}km/h</p></div>
+          <div className='grid-item'>          <h1>Day after tomorrow</h1>
           <h1>Day after tomorrow: Morning </h1>
             <p>Weather description: {dayAfterTomorrowsWeatherData.weatherDescription.Morning}</p>
             <p>Temperature: {dayAfterTomorrowsWeatherData.temperature.Morning} degrees C</p>
             <p>Precipitation: {dayAfterTomorrowsWeatherData.precipitation.Morning}mm</p>
             <p>Humidity: {dayAfterTomorrowsWeatherData.humidity.Morning}%</p>
-            <p>Wind Speed: {dayAfterTomorrowsWeatherData.windSpeed.Morning}km/h</p>
-
+            <p>Wind Speed: {dayAfterTomorrowsWeatherData.windSpeed.Morning}km/h</p></div>
+          <div className='grid-item'>
           <h1>Day after tomorrow: Noon </h1>
             <p>Weather description: {dayAfterTomorrowsWeatherData.weatherDescription.Noon}</p>
             <p>Temperature: {dayAfterTomorrowsWeatherData.temperature.Noon} degrees C</p>
             <p>Precipitation: {dayAfterTomorrowsWeatherData.precipitation.Noon}mm</p>
             <p>Humidity: {dayAfterTomorrowsWeatherData.humidity.Noon}%</p>
-            <p>Wind Speed: {dayAfterTomorrowsWeatherData.windSpeed.Noon}km/h</p>
-          
+            <p>Wind Speed: {dayAfterTomorrowsWeatherData.windSpeed.Noon}km/h</p></div>
+          <div className='grid-item'>          
           <h1>Day after tomorrow: Evening </h1>
             <p>Weather description: {dayAfterTomorrowsWeatherData.weatherDescription.Evening}</p>
             <p>Temperature: {dayAfterTomorrowsWeatherData.temperature.Evening} degrees C</p>
             <p>Precipitation: {dayAfterTomorrowsWeatherData.precipitation.Evening}mm</p>
             <p>Humidity: {dayAfterTomorrowsWeatherData.humidity.Evening}%</p>
-            <p>Wind Speed: {dayAfterTomorrowsWeatherData.windSpeed.Evening}km/h</p>
-
-          <h1>Day after tomorrow: Night </h1>
+            <p>Wind Speed: {dayAfterTomorrowsWeatherData.windSpeed.Evening}km/h</p></div>
+          <div className='grid-item'>          <h1>Day after tomorrow: Night </h1>
             <p>Weather description: {dayAfterTomorrowsWeatherData.weatherDescription.Night}</p>
             <p>Temperature: {dayAfterTomorrowsWeatherData.temperature.Night} degrees C</p>
             <p>Precipitation: {dayAfterTomorrowsWeatherData.precipitation.Night}mm</p>
             <p>Humidity: {dayAfterTomorrowsWeatherData.humidity.Night}%</p>
-            <p>Wind Speed: {dayAfterTomorrowsWeatherData.windSpeed.Night}km/h</p>
+            <p>Wind Speed: {dayAfterTomorrowsWeatherData.windSpeed.Night}km/h</p></div>
 
-        </div>
+          </div>
+
           
+          
+
+          
+          
+          
+
+
+          
+          
+
+          
+
+
+
+          
+
+
+
+
+
+            </div>
+            
+
       )}
+
+          
     </div>
   );
 }
