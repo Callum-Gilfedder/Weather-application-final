@@ -16,9 +16,9 @@ function SearchBoxAndCurrentWeather(props) {
                 <h2> Weather forecast for {currentWeatherData !== null && currentWeatherData.location}</h2>
                 <input type="text" placeholder='Enter search location...' onChange={handleChange}></input>
                 <button onClick={handleClick}>Search</button>
-                {loading ? <h1> Loading... </h1>: null}
+                {loading ? <h1> Loading... </h1>: (location !== "" ? (apiCallStatus ? <p className="green">Weather successfully found for {location}</p> : <p className="red"> Search failed for {location}</p>) : null)}
 
-                {location !== "" ? (apiCallStatus ? <p className="green">Weather successfully found for {location}</p> : <p className="red"> Search failed for {location}</p>) : null}
+                
             </div>
             <div className="column">
                 {/* Display simplified weather data */}

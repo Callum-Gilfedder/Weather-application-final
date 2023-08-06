@@ -38,10 +38,8 @@ function WeatherApp() {
       .catch(error => {
         console.error('Error fetching weather data:', error);
         setApiCallStatus(false)
-      })
-      .finally(
         setLoading(false)
-      );
+      })
   }, [location]);
 
   console.log(responseData)
@@ -169,8 +167,9 @@ function WeatherApp() {
         
         },
       }
-      
+    setLoading(false)
     return weatherData
+    
     ;
   };
 
