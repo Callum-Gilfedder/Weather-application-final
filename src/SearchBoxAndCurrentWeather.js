@@ -9,24 +9,31 @@ function SearchBoxAndCurrentWeather(props) {
     return (
 
         <>
-              <h1>Weather Data </h1>
-      <input type="text" placeholder='Enter search location...' onChange={handleChange}></input>
-      <button onClick={handleClick}>Search</button>
-      {loading ? <h1> Loading... </h1>: null}
+        <div className="top-container">
+            <div className="column">
+                {/* <h2>{currentWeatherData.location}</h2> */}
+                <input type="text" placeholder='Enter search location...' onChange={handleChange}></input>
+                <button onClick={handleClick}>Search</button>
+                {loading ? <h1> Loading... </h1>: null}
 
-      {location !== "" ? (apiCallStatus ? <p>Weather successfully found for {location}</p> : <p> Search failed for {location}</p>) : null}
-      {/* Display simplified weather data */}
-      {currentWeatherData && (
-        <div>
-          <h1>Current Weather Conditions</h1>
-            <p>Location: {currentWeatherData.location}</p>          
-            <p>Weather description: {currentWeatherData.weatherDescription}</p>
-            <p>Temperature: {currentWeatherData.temperature} degrees C</p>
-            <p>Precipitation: {currentWeatherData.precipitation}mm</p>
-            <p>Humidity: {currentWeatherData.humidity}%</p>
-            <p>Wind Speed: {currentWeatherData.windSpeed}km/h</p>
+                {location !== "" ? (apiCallStatus ? <p>Weather successfully found for {location}</p> : <p> Search failed for {location}</p>) : null}
+            </div>
+            <div className="column">
+                {/* Display simplified weather data */}
+                {currentWeatherData && (
+                    <div>
+                    <h1>Current Weather Conditions</h1>
+                        <p>Location: {currentWeatherData.location}</p>          
+                        <p>Weather description: {currentWeatherData.weatherDescription}</p>
+                        <p>Temperature: {currentWeatherData.temperature} degrees C</p>
+                        <p>Precipitation: {currentWeatherData.precipitation}mm</p>
+                        <p>Humidity: {currentWeatherData.humidity}%</p>
+                        <p>Wind Speed: {currentWeatherData.windSpeed}km/h</p>
+                    </div>
+                    
+                    )} 
+            </div>
         </div>
-        )} 
     </>
     )
 }
