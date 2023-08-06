@@ -40,7 +40,7 @@ describe('WeatherBox', () => {
     expect(dateAndTimeElement).toBeInTheDocument();
   });
 
-  test('renders weather description correctly', () => {
+  test('Renders weather description correctly', () => {
     render(
       <WeatherBox
         time="Morning"
@@ -95,7 +95,7 @@ describe('WeatherBox', () => {
           />
         );
     
-        const windSpeedParentElement = screen.getByText('Wind Speed:');
+        const windSpeedParentElement = screen.getByText('Wind speed:');
       //   I need to select parent elements because getByText doesn't work with the span elements inside the p element.
         const windSpeedElement = windSpeedParentElement.querySelector('span');
     

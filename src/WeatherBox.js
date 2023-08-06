@@ -17,7 +17,7 @@ function WeatherBox(props) {
                 <p >Temperature: <span className={getTemperatureColor(weatherData.temperature[time])}> {weatherData.temperature[time]}&deg;C </span></p>
                 <p>Precipitation: <span className={getPrecipitationColor(weatherData.precipitation[time])}>{weatherData.precipitation[time]}mm</span></p>
                 <p>Humidity: <span className={getHumidityColor(weatherData.humidity[time])}>{weatherData.humidity[time]}%</span></p>
-                <p>Wind Speed: <span className={getWindSpeedColor(weatherData.windSpeed[time])}>{weatherData.windSpeed[time]}km/h</span></p>
+                <p>Wind speed: <span className={getWindSpeedColor(weatherData.windSpeed[time])}>{weatherData.windSpeed[time]}km/h</span></p>
             </div>
         </div>
         </>
