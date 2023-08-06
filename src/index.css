@@ -3,6 +3,7 @@
   --secondary-color: rgba(97, 103, 122, 0.541);
   --tertiary-color: rgb(216, 217, 218);
   --text-color: rgb(255, 246, 224);
+  --secondary-text-color: rgba(255, 246, 224, 0.678);
 }
 
 body {
@@ -54,6 +55,7 @@ h1 {
 
 h2 {
   font-size: 3rem;
+  margin-bottom: 10px;
 }
 
 input {
@@ -70,7 +72,10 @@ button {
 }
 
 .top-container {
+  margin-top: 20px;
   display: flex;
+  width: 100vw;
+  margin-bottom: 20px;
 }
 
 .column {
@@ -79,6 +84,38 @@ button {
   flex-direction: column; /* Added */
   justify-content: center; /* Center vertically */
   align-items: center; /* Center horizontally */
-  padding: 20px;
+  padding: 10px;
   box-sizing: border-box;
+  background-color: var(--secondary-color);
+  border-radius: 10px;
+  margin-right: 18px;
 }
+
+p { 
+  color: var(--secondary-text-color);
+}
+
+.blue {
+  color: rgb(152, 152, 255);
+}
+
+.cyan {
+  color: cyan;
+}
+
+.green {
+  color: rgb(0, 255, 0);
+}
+
+.yellow {
+  color: yellow;
+}
+
+.orange {
+  color: orange;
+}
+
+.red {
+  color: rgb(255, 51, 51);
+}
+

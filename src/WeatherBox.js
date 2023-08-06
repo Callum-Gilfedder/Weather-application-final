@@ -1,17 +1,23 @@
+import { getTemperatureColor, getHumidityColor, getWindSpeedColor, getPrecipitationColor } from "./colorCodingFunctions"
+
+
 function WeatherBox(props) {
     const time = props.time
     const weatherData = props.weatherData
     const date = props.date
+
+    
+    
     return (
         <>
         <div className='grid-item'>
             <div className="grid-inner-container">
                 <h1> {date}'s weather: {time} </h1>
-                <p>Weather description: {weatherData.weatherDescription[time]}</p>
-                <p>Temperature: {weatherData.temperature[time]} degrees C</p>
-                <p>Precipitation: {weatherData.precipitation[time]}mm</p>
-                <p>Humidity: {weatherData.humidity[time]}%</p>
-                <p>Wind Speed: {weatherData.windSpeed[time]}km/h</p>
+                <p>  Weather description:  {weatherData.weatherDescription[time]} </p>
+                <p >Temperature: <span className={getTemperatureColor(weatherData.temperature[time])}> {weatherData.temperature[time]}&deg;C </span></p>
+                <p>Precipitation: <span className={getPrecipitationColor(weatherData.precipitation[time])}>{weatherData.precipitation[time]}mm</span></p>
+                <p>Humidity: <span className={getHumidityColor(weatherData.humidity[time])}>{weatherData.humidity[time]}%</span></p>
+                <p>Wind Speed: <span className={getWindSpeedColor(weatherData.windSpeed[time])}>{weatherData.windSpeed[time]}km/h</span></p>
             </div>
         </div>
         </>
