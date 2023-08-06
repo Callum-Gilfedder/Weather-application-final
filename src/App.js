@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import WeatherBox from './WeatherBox';
 
 function WeatherApp() {
   const [responseData, setResponseData] = useState(null);
@@ -161,9 +162,9 @@ function WeatherApp() {
             Evening: rawData.weather[2].hourly[6].windspeedKmph,
             Night: rawData.weather[2].hourly[7].windspeedKmph, 
           }, 
+        
         },
       }
-
     return weatherData
     ;
   };
@@ -174,6 +175,7 @@ function WeatherApp() {
       <input type="text" placeholder='Enter search location...' onChange={handleChange}></input>
       <button onClick={handleClick}>Search</button>
       {loading ? <h1> Loading... </h1>: null}
+
       {location !== "" ? (apiCallStatus ? <p>Weather successfully found for {location}</p> : <p> Search failed for {location}</p>) : null}
       {/* Display simplified weather data */}
       {currentWeatherData && (
@@ -189,107 +191,20 @@ function WeatherApp() {
 
 
           <div className='grid-container'>
-          <div className='grid-item'><h1>Todays weather: Morning </h1>
-            <p>Weather description: {todaysWeatherData.weatherDescription.Morning}</p>
-            <p>Temperature: {todaysWeatherData.temperature.Morning} degrees C</p>
-            <p>Precipitation: {todaysWeatherData.precipitation.Morning}mm</p>
-            <p>Humidity: {todaysWeatherData.humidity.Morning}%</p>
-            <p>Wind Speed: {todaysWeatherData.windSpeed.Morning}km/h</p></div>
-          <div className='grid-item'><h1>Todays weather: Noon </h1>
-            <p>Weather description: {todaysWeatherData.weatherDescription.Noon}</p>
-            <p>Temperature: {todaysWeatherData.temperature.Noon} degrees C</p>
-            <p>Precipitation: {todaysWeatherData.precipitation.Noon}mm</p>
-            <p>Humidity: {todaysWeatherData.humidity.Noon}%</p>
-            <p>Wind Speed: {todaysWeatherData.windSpeed.Noon}km/h</p></div>
-          <div className='grid-item'><h1>Todays weather: Evening </h1>
-            <p>Weather description: {todaysWeatherData.weatherDescription.Evening}</p>
-            <p>Temperature: {todaysWeatherData.temperature.Evening} degrees C</p>
-            <p>Precipitation: {todaysWeatherData.precipitation.Evening}mm</p>
-            <p>Humidity: {todaysWeatherData.humidity.Evening}%</p>
-            <p>Wind Speed: {todaysWeatherData.windSpeed.Evening}km/h</p></div>
-          <div className='grid-item'>          <h1>Todays weather: Night </h1>
-            <p>Weather description: {todaysWeatherData.weatherDescription.Night}</p>
-            <p>Temperature: {todaysWeatherData.temperature.Night} degrees C</p>
-            <p>Precipitation: {todaysWeatherData.precipitation.Night}mm</p>
-            <p>Humidity: {todaysWeatherData.humidity.Night}%</p>
-            <p>Wind Speed: {todaysWeatherData.windSpeed.Night}km/h</p></div>
-          <div className='grid-item'><h1>Tomorrows weather: Morning </h1>
-            <p>Weather description: {tomorrowsWeatherData.weatherDescription.Morning}</p>
-            <p>Temperature: {tomorrowsWeatherData.temperature.Morning} degrees C</p>
-            <p>Precipitation: {tomorrowsWeatherData.precipitation.Morning}mm</p>
-            <p>Humidity: {tomorrowsWeatherData.humidity.Morning}%</p>
-            <p>Wind Speed: {tomorrowsWeatherData.windSpeed.Morning}km/h</p></div>
-          <div className='grid-item'>
-          <h1>Tomorrows weather: Noon </h1>
-            <p>Weather description: {tomorrowsWeatherData.weatherDescription.Noon}</p>
-            <p>Temperature: {tomorrowsWeatherData.temperature.Noon} degrees C</p>
-            <p>Precipitation: {tomorrowsWeatherData.precipitation.Noon}mm</p>
-            <p>Humidity: {tomorrowsWeatherData.humidity.Noon}%</p>
-            <p>Wind Speed: {tomorrowsWeatherData.windSpeed.Noon}km/h</p></div>
-          <div className='grid-item'>          <h1>Tomorrows weather: Evening </h1>
-            <p>Weather description: {tomorrowsWeatherData.weatherDescription.Evening}</p>
-            <p>Temperature: {tomorrowsWeatherData.temperature.Evening} degrees C</p>
-            <p>Precipitation: {tomorrowsWeatherData.precipitation.Evening}mm</p>
-            <p>Humidity: {tomorrowsWeatherData.humidity.Evening}%</p>
-            <p>Wind Speed: {tomorrowsWeatherData.windSpeed.Evening}km/h</p></div>
-          <div className='grid-item'>          <h1>Tomorrows weather: Night </h1>
-            <p>Weather description: {tomorrowsWeatherData.weatherDescription.Night}</p>
-            <p>Temperature: {tomorrowsWeatherData.temperature.Night} degrees C</p>
-            <p>Precipitation: {tomorrowsWeatherData.precipitation.Night}mm</p>
-            <p>Humidity: {tomorrowsWeatherData.humidity.Night}%</p>
-            <p>Wind Speed: {tomorrowsWeatherData.windSpeed.Night}km/h</p></div>
-          <div className='grid-item'>          <h1>Day after tomorrow</h1>
-          <h1>Day after tomorrow: Morning </h1>
-            <p>Weather description: {dayAfterTomorrowsWeatherData.weatherDescription.Morning}</p>
-            <p>Temperature: {dayAfterTomorrowsWeatherData.temperature.Morning} degrees C</p>
-            <p>Precipitation: {dayAfterTomorrowsWeatherData.precipitation.Morning}mm</p>
-            <p>Humidity: {dayAfterTomorrowsWeatherData.humidity.Morning}%</p>
-            <p>Wind Speed: {dayAfterTomorrowsWeatherData.windSpeed.Morning}km/h</p></div>
-          <div className='grid-item'>
-          <h1>Day after tomorrow: Noon </h1>
-            <p>Weather description: {dayAfterTomorrowsWeatherData.weatherDescription.Noon}</p>
-            <p>Temperature: {dayAfterTomorrowsWeatherData.temperature.Noon} degrees C</p>
-            <p>Precipitation: {dayAfterTomorrowsWeatherData.precipitation.Noon}mm</p>
-            <p>Humidity: {dayAfterTomorrowsWeatherData.humidity.Noon}%</p>
-            <p>Wind Speed: {dayAfterTomorrowsWeatherData.windSpeed.Noon}km/h</p></div>
-          <div className='grid-item'>          
-          <h1>Day after tomorrow: Evening </h1>
-            <p>Weather description: {dayAfterTomorrowsWeatherData.weatherDescription.Evening}</p>
-            <p>Temperature: {dayAfterTomorrowsWeatherData.temperature.Evening} degrees C</p>
-            <p>Precipitation: {dayAfterTomorrowsWeatherData.precipitation.Evening}mm</p>
-            <p>Humidity: {dayAfterTomorrowsWeatherData.humidity.Evening}%</p>
-            <p>Wind Speed: {dayAfterTomorrowsWeatherData.windSpeed.Evening}km/h</p></div>
-          <div className='grid-item'>          <h1>Day after tomorrow: Night </h1>
-            <p>Weather description: {dayAfterTomorrowsWeatherData.weatherDescription.Night}</p>
-            <p>Temperature: {dayAfterTomorrowsWeatherData.temperature.Night} degrees C</p>
-            <p>Precipitation: {dayAfterTomorrowsWeatherData.precipitation.Night}mm</p>
-            <p>Humidity: {dayAfterTomorrowsWeatherData.humidity.Night}%</p>
-            <p>Wind Speed: {dayAfterTomorrowsWeatherData.windSpeed.Night}km/h</p></div>
-
+         <WeatherBox weatherData={todaysWeatherData} time="Morning"></WeatherBox>
+         <WeatherBox weatherData={todaysWeatherData} time="Noon"></WeatherBox>
+         <WeatherBox weatherData={todaysWeatherData} time="Evening"></WeatherBox>
+         <WeatherBox weatherData={todaysWeatherData} time="Night"></WeatherBox>
+         <WeatherBox weatherData={tomorrowsWeatherData} time="Morning"></WeatherBox>
+         <WeatherBox weatherData={tomorrowsWeatherData} time="Noon"></WeatherBox>
+         <WeatherBox weatherData={tomorrowsWeatherData} time="Evening"></WeatherBox>
+         <WeatherBox weatherData={tomorrowsWeatherData} time="Night"></WeatherBox>
+         <WeatherBox weatherData={dayAfterTomorrowsWeatherData} time="Morning"></WeatherBox>
+         <WeatherBox weatherData={dayAfterTomorrowsWeatherData} time="Noon"></WeatherBox>
+         <WeatherBox weatherData={dayAfterTomorrowsWeatherData} time="Evening"></WeatherBox>
+         <WeatherBox weatherData={dayAfterTomorrowsWeatherData} time="Night"></WeatherBox>
           </div>
-
-          
-          
-
-          
-          
-          
-
-
-          
-          
-
-          
-
-
-
-          
-
-
-
-
-
-            </div>
+        </div>
             
 
       )}
