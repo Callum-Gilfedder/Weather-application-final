@@ -14,6 +14,9 @@ function WeatherApp() {
   const [apiCallStatus, setApiCallStatus] = useState(null)
   const [loading, setLoading] = useState(false)
 
+  const timeSlots = ["Morning", "Noon", "Evening", "Night"] 
+
+
   useEffect(() => {
     // Define the API URL
     const apiUrl = 'https://wttr.in/' + location + '?format=j1';
@@ -191,18 +194,16 @@ function WeatherApp() {
 
 
           <div className='grid-container'>
-         <WeatherBox weatherData={todaysWeatherData} time="Morning"></WeatherBox>
-         <WeatherBox weatherData={todaysWeatherData} time="Noon"></WeatherBox>
-         <WeatherBox weatherData={todaysWeatherData} time="Evening"></WeatherBox>
-         <WeatherBox weatherData={todaysWeatherData} time="Night"></WeatherBox>
-         <WeatherBox weatherData={tomorrowsWeatherData} time="Morning"></WeatherBox>
-         <WeatherBox weatherData={tomorrowsWeatherData} time="Noon"></WeatherBox>
-         <WeatherBox weatherData={tomorrowsWeatherData} time="Evening"></WeatherBox>
-         <WeatherBox weatherData={tomorrowsWeatherData} time="Night"></WeatherBox>
-         <WeatherBox weatherData={dayAfterTomorrowsWeatherData} time="Morning"></WeatherBox>
-         <WeatherBox weatherData={dayAfterTomorrowsWeatherData} time="Noon"></WeatherBox>
-         <WeatherBox weatherData={dayAfterTomorrowsWeatherData} time="Evening"></WeatherBox>
-         <WeatherBox weatherData={dayAfterTomorrowsWeatherData} time="Night"></WeatherBox>
+          {timeSlots.map((timeSlot) => (
+                <WeatherBox weatherData={todaysWeatherData} time={timeSlot} />
+            ))}
+          {timeSlots.map((timeSlot) => (
+                <WeatherBox weatherData={tomorrowsWeatherData} time={timeSlot} />
+            ))}
+          {timeSlots.map((timeSlot) => (
+                <WeatherBox weatherData={dayAfterTomorrowsWeatherData} time={timeSlot} />
+            ))}    
+
           </div>
         </div>
             
