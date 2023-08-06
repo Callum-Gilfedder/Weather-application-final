@@ -118,5 +118,4 @@ describe('WeatherBox', () => {
         expect(precipitationElement).toHaveClass(getPrecipitationColor(mockWeatherData.precipitation.Morning));
         expect(precipitationElement).toHaveTextContent('2mm');
       });
-      
 })
