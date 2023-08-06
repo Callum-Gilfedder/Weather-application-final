@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import WeatherBox from './WeatherBox';
+import SearchBoxAndCurrentWeather from './SearchBoxAndCurrentWeather';
 
 function WeatherApp() {
   const [responseData, setResponseData] = useState(null);
@@ -174,41 +175,30 @@ function WeatherApp() {
 
   return (
     <div>
-      <h1>Weather Data </h1>
-      <input type="text" placeholder='Enter search location...' onChange={handleChange}></input>
-      <button onClick={handleClick}>Search</button>
-      {loading ? <h1> Loading... </h1>: null}
-
-      {location !== "" ? (apiCallStatus ? <p>Weather successfully found for {location}</p> : <p> Search failed for {location}</p>) : null}
-      {/* Display simplified weather data */}
-      {currentWeatherData && (
-        <div>
-          <h1>Current Weather Conditions</h1>
-            <p>Location: {currentWeatherData.location}</p>          
-            <p>Weather description: {currentWeatherData.weatherDescription}</p>
-            <p>Temperature: {currentWeatherData.temperature} degrees C</p>
-            <p>Precipitation: {currentWeatherData.precipitation}mm</p>
-            <p>Humidity: {currentWeatherData.humidity}%</p>
-            <p>Wind Speed: {currentWeatherData.windSpeed}km/h</p>
-
-
-
-          <div className='grid-container'>
-          {timeSlots.map((timeSlot) => (
-                <WeatherBox weatherData={todaysWeatherData} time={timeSlot} />
-            ))}
-          {timeSlots.map((timeSlot) => (
-                <WeatherBox weatherData={tomorrowsWeatherData} time={timeSlot} />
-            ))}
-          {timeSlots.map((timeSlot) => (
-                <WeatherBox weatherData={dayAfterTomorrowsWeatherData} time={timeSlot} />
-            ))}    
+        <SearchBoxAndCurrentWeather apiCallStatus={apiCallStatus} loading={loading} handleClick={handleClick} handleChange={handleChange} location={location} currentWeatherData={currentWeatherData} ></SearchBoxAndCurrentWeather>
+      
+  
+        <div className='grid-container'>
+          {todaysWeatherData !== null && 
+          (timeSlots.map((timeSlot) => (
+                <WeatherBox weatherData={todaysWeatherData} date = {"Today"} time={timeSlot} />
+            )))
+          }
+          {tomorrowsWeatherData !== null && 
+          (timeSlots.map((timeSlot) => (
+                <WeatherBox weatherData={tomorrowsWeatherData} date = {"Tomorrow"} time={timeSlot} />
+            )))
+          }
+          {dayAfterTomorrowsWeatherData !== null && 
+          (timeSlots.map((timeSlot) => (
+                <WeatherBox weatherData={dayAfterTomorrowsWeatherData} date = {"Day after tomorrow"}  time={timeSlot} />
+            )))
+          }
 
           </div>
-        </div>
             
 
-      )}
+      
 
           
     </div>
